@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
-    public function tipo()
-{
-    return $this->belongsTo(TipoProducto::class, 'tipo_producto_id');
-}
+    protected $fillable = ['nombre', 'precio', 'stock', 'tipo_producto_id'];
 
+    public function tipo()
+    {
+        return $this->belongsTo(TipoProducto::class, 'tipo_producto_id');
+    }
 }
