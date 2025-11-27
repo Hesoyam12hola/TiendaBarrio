@@ -10,38 +10,44 @@ class TipoProductoController extends Controller
     public function index()
     {
         $tipos = TipoProducto::all();
-        return view('tipoproductos.index', compact('tipos'));
+        return view('tipos.index', compact('tipos'));
     }
 
     public function create()
     {
-        return view('tipoproductos.create');
+        return view('tipos.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
+            'nombre' => 'required'
         ]);
 
         TipoProducto::create($request->all());
-        return redirect()->route('tipoproductos.index')->with('success', 'Tipo creado');
+
+        return redirect()->route('tipos.index')->with('success', 'Tipo creado correctamente.');
     }
 
-    public function edit(TipoProducto $tipoproducto)
+    public function edit(TipoProducto $tipo)
     {
-        return view('tipoproductos.edit', compact('tipoproducto'));
+        return view('tipos.edit', compact('tipo'));
     }
 
-    public function update(Request $request, TipoProducto $tipoproducto)
+    public function update(Request $request, TipoProducto $tipo)
     {
-        $tipoproducto->update($request->all());
-        return redirect()->route('tipoproductos.index')->with('success', 'Actualizado');
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+
+        $tipo->update($request->all());
+
+        return redirect()->route('tipos.index')->with('success', 'Tipo actualizado.');
     }
 
-    public function destroy(TipoProducto $tipoproducto)
+    public function destroy(TipoProducto $tipo)
     {
-        $tipoproducto->delete();
-        return redirect()->route('tipoproductos.index')->with('success', 'Eliminado');
+        $tipo->delete();
+        return redirect()->route('tipos.index')->with('success', 'Tipo eliminado.');
     }
 }
