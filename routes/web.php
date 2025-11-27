@@ -1,31 +1,24 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
 
+// Login simple (sin roles)
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+})->name('login');
+
+Route::post('/login', function () {
+    return redirect()->route('dashboard');
 });
 
+// Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// CRUD productos
+Route::resource('productos', ProductController::class);
 
-require __DIR__.'/auth.php';
-
-use App\Http\Controllers\TipoProductoController;
-use App\Http\Controllers\ProductoController;
-
-Route::resource('tipos-productos', TipoProductoController::class);
-Route::resource('productos', ProductoController::class);
-
-
-Route::get('/prueba', function () {
-    return view('prueba');
-});
+// CRUD tipos de producto
+Route::resource('tipos-producto', ProductTypeController::class);
