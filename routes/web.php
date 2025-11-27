@@ -22,5 +22,5 @@ require __DIR__.'/auth.php';
 use App\Http\Controllers\TipoProductoController;
 use App\Http\Controllers\ProductoController;
 
-Route::resource('tipoproductos', TipoProductoController::class)->middleware('auth');
-Route::resource('productos', ProductoController::class)->middleware('auth');
+Route::resource('tipos-productos', TipoProductoController::class);
+Route::resource('productos', ProductoController::class);
