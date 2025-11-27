@@ -24,3 +24,8 @@ use App\Http\Controllers\ProductoController;
 
 Route::resource('tipos-productos', TipoProductoController::class);
 Route::resource('productos', ProductoController::class);
+
+
+Route::get('/prueba', function () {
+    return view('prueba');
+});
