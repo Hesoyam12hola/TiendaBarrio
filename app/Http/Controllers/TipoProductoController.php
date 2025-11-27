@@ -21,11 +21,10 @@ class TipoProductoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => 'required',
         ]);
 
         TipoProducto::create($request->all());
-
         return redirect()->route('tipos.index')->with('success', 'Tipo creado correctamente.');
     }
 
@@ -37,11 +36,10 @@ class TipoProductoController extends Controller
     public function update(Request $request, TipoProducto $tipo)
     {
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => 'required',
         ]);
 
         $tipo->update($request->all());
-
         return redirect()->route('tipos.index')->with('success', 'Tipo actualizado.');
     }
 

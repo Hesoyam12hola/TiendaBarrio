@@ -1,7 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\TipoProductoController;
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Route::resource('productos', ProductoController::class);
+Route::resource('tipos',   TipoProductoController::class);
 
 // Login simple (sin roles)
 Route::get('/', function () {

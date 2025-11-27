@@ -24,30 +24,35 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'precio' => 'required',
-            'stock' => 'required',
-            'tipo_producto_id' => 'required'
+            'precio' => 'required|numeric',
+            'tipo_producto_id' => 'required',
         ]);
 
         Producto::create($request->all());
-        return redirect()->route('productos.index')->with('success', 'Producto creado');
+        return redirect()->route('productos.index')->with('success', 'Producto creado.');
     }
 
     public function edit(Producto $producto)
     {
         $tipos = TipoProducto::all();
-        return view('productos.edit', compact('producto','tipos'));
+        return view('productos.edit', compact('producto', 'tipos'));
     }
 
     public function update(Request $request, Producto $producto)
     {
+        $request->validate([
+            'nombre' => 'required',
+            'precio' => 'required|numeric',
+            'tipo_producto_id' => 'required',
+        ]);
+
         $producto->update($request->all());
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado');
+        return redirect()->route('productos.index')->with('success', 'Producto actualizado.');
     }
 
     public function destroy(Producto $producto)
     {
         $producto->delete();
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado');
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado.');
     }
 }
