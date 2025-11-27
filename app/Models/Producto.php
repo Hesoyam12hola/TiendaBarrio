@@ -13,13 +13,11 @@ class Producto extends Model
 
     protected $fillable = [
         'nombre',
-        'descripcion',
         'precio',
         'stock',
         'tipo_producto_id'
     ];
 
-    // Relación con TipoProducto
     public function tipoProducto()
     {
         return $this->belongsTo(TipoProducto::class);
