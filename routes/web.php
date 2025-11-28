@@ -1,31 +1,19 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\TipoProductoController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
-Route::resource('productos', ProductoController::class);
-Route::resource('tipos',   TipoProductoController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-// Login simple (sin roles)
-Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::post('/login', function () {
-    return redirect()->route('dashboard');
+    Route::resource('productos', ProductController::class);
+    Route::resource('tipos-producto', ProductTypeController::class);
 });
 
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-// CRUD productos
-Route::resource('productos', ProductController::class);
-
-// CRUD tipos de producto
-Route::resource('tipos-producto', ProductTypeController::class);
+require __DIR__.'/auth.php';

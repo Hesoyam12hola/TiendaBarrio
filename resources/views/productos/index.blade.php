@@ -1,32 +1,55 @@
-<h1>Productos</h1>
+@extends('layouts.app')
 
-<a href="{{ route('productos.create') }}">Crear producto</a>
+@section('content')
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Tipo</th>
-        <th>Acciones</th>
-    </tr>
+<div class="card shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Productos</h4>
+        <a href="{{ route('productos.create') }}" class="btn btn-primary">Nuevo Producto</a>
+    </div>
 
-    @foreach($productos as $p)
-    <tr>
-        <td>{{ $p->id }}</td>
-        <td>{{ $p->nombre }}</td>
-        <td>{{ $p->precio }}</td>
-        <td>{{ $p->tipo->nombre }}</td>
+    <div class="card-body">
 
-        <td>
-            <a href="{{ route('productos.edit', $p) }}">Editar</a>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-            <form action="{{ route('productos.destroy', $p) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button>Eliminar</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Tipo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($productos as $p)
+                <tr>
+                    <td>{{ $p->id }}</td>
+                    <td>{{ $p->nombre }}</td>
+                    <td>${{ number_format($p->precio, 0, ',', '.') }}</td>
+                    <td>{{ $p->tipo->nombre }}</td>
+                    <td>
+                        <a href="{{ route('productos.edit', $p->id) }}" class="btn btn-warning btn-sm">Editar</a>
+
+                        <form action="{{ route('productos.destroy', $p->id) }}" 
+                              method="POST" 
+                              class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@endsection

@@ -1,11 +1,27 @@
-<h1>Editar Tipo</h1>
+@extends('layouts.app')
 
-<form action="{{ route('tipos.update', $tipo) }}" method="POST">
-    @csrf
-    @method('PUT')
+@section('content')
 
-    <label>Nombre:</label>
-    <input type="text" name="nombre" value="{{ $tipo->nombre }}">
+<div class="card shadow">
+    <div class="card-header"><h4>Editar Tipo de Producto</h4></div>
 
-    <button>Actualizar</button>
-</form>
+    <div class="card-body">
+
+        <form action="{{ route('tipos-producto.update', $tipo->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del tipo</label>
+                <input type="text" name="nombre" value="{{ $tipo->nombre }}" class="form-control" required>
+            </div>
+
+            <button class="btn btn-primary">Actualizar</button>
+            <a href="{{ route('tipos-producto.index') }}" class="btn btn-secondary">Volver</a>
+
+        </form>
+
+    </div>
+</div>
+
+@endsection

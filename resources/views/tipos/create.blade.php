@@ -1,10 +1,25 @@
-<h1>Crear Tipo</h1>
+@extends('layouts.app')
 
-<form action="{{ route('tipos.store') }}" method="POST">
-    @csrf
+@section('content')
 
-    <label>Nombre:</label>
-    <input type="text" name="nombre">
+<div class="card shadow">
+    <div class="card-header"><h4>Crear Tipo de Producto</h4></div>
 
-    <button>Guardar</button>
-</form>
+    <div class="card-body">
+
+        <form action="{{ route('tipos-producto.store') }}" method="POST">
+            @csrf
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del tipo</label>
+                <input type="text" name="nombre" class="form-control" required>
+            </div>
+
+            <button class="btn btn-primary">Guardar</button>
+            <a href="{{ route('tipos-producto.index') }}" class="btn btn-secondary">Volver</a>
+        </form>
+
+    </div>
+</div>
+
+@endsection
