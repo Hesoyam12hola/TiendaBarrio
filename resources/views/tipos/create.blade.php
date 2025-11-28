@@ -3,11 +3,13 @@
 @section('content')
 
 <div class="card shadow">
-    <div class="card-header"><h4>Crear Tipo de Producto</h4></div>
+    <div class="card-header">
+        <h4>Crear Tipo de Producto</h4>
+    </div>
 
     <div class="card-body">
 
-        <form action="{{ route('tipos-producto.store') }}" method="POST">
+        <form action="{{ route('tipos.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
@@ -15,8 +17,8 @@
                 <input type="text" name="nombre" class="form-control" required>
             </div>
 
-            <button class="btn btn-primary">Guardar</button>
-            <a href="{{ route('tipos-producto.index') }}" class="btn btn-secondary">Volver</a>
+            <button class="btn btn-success">Guardar</button>
+            <a href="{{ route('tipos.index') }}" class="btn btn-secondary">Volver</a>
         </form>
 
     </div>

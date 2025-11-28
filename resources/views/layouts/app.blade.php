@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tipos-producto.index') }}">Tipos de Producto</a>
+                        <a class="nav-link" href="{{ route('tipos.index') }}">Tipos de Producto</a>
                     </li>
 
                     <li class="nav-item">
