@@ -10,8 +10,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $productos = Producto::with('tipo')->get();
+        $productos = Producto::all();
         return view('productos.index', compact('productos'));
+    }
+
+    public function show($id)
+    {
+        $producto = Producto::findOrFail($id);
+        return view('productos.show', compact('producto'));
     }
 
     public function create()
@@ -21,38 +27,49 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required|numeric',
-            'tipo_producto_id' => 'required',
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required',
+        'descripcion' => 'nullable',
+        'precio' => 'required|numeric',
+        'tipo_producto_id' => 'required|integer',
+    ]);
 
-        Producto::create($request->all());
-        return redirect()->route('productos.index')->with('success', 'Producto creado.');
-    }
+    Producto::create([
+        'nombre' => $request->nombre,
+        'descripcion' => $request->descripcion,
+        'precio' => $request->precio,
+        'tipo_producto_id' => $request->tipo_producto_id,
+    ]);
 
-    public function edit(Producto $producto)
+    return redirect()->route('productos.index')->with('success', 'Producto creado');
+}
+
+    public function edit($id)
     {
+        $producto = Producto::findOrFail($id);
         $tipos = TipoProducto::all();
         return view('productos.edit', compact('producto', 'tipos'));
     }
 
-    public function update(Request $request, Producto $producto)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required|numeric',
-            'tipo_producto_id' => 'required',
-        ]);
+public function update(Request $request, $id)
+{
+    $productos = Producto::findOrFail($id);
 
-        $producto->update($request->all());
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado.');
-    }
+    $productos->update([
+        'nombre' => $request->nombre,
+        'descripcion' => $request->descripcion,
+        
+        'tipo_producto_id' => $request->tipo_producto_id,
+    ]);
 
-    public function destroy(Producto $producto)
+    return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');
+}
+
+
+    public function destroy($id)
     {
-        $producto->delete();
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado.');
+        Producto::destroy($id);
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado');
     }
 }

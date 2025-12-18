@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
          Schema::create('productos', function (Blueprint $table) {
@@ -18,6 +16,7 @@ return new class extends Migration
         $table->integer('stock')->default(0);
         $table->unsignedBigInteger('tipo_producto_id');
         $table->timestamps();
+        $table->text('descripcion')->nullable();
 
         $table->foreign('tipo_producto_id')
               ->references('id')->on('tipo_productos')
@@ -25,9 +24,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('productos');
