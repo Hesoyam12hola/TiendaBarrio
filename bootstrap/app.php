@@ -13,6 +13,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function ( ): void {
         //
     })
-    ->withExceptions(function ( $exceptions): void {
+    ->withExceptions(function ( ): void {
         //
     })->create();
