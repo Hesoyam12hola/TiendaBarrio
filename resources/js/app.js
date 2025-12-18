@@ -1,6 +1,6 @@
 import 'bootstrap';
 
 
-window.Alpine = Alpine;
+globalThis.Alpine = Alpine;
 
 Alpine.start();
